@@ -1,0 +1,27 @@
+{
+  "name": "ai-agent-governance-dashboard",
+  "version": "1.0.0",
+  "description": "Self-hostable governance service for AI agents: live trace ingestion, prompt-injection detection, tool-call monitoring, human approvals, and audit-ready evidence.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/index.mjs",
+    "dev": "node --disable-warning=ExperimentalWarning server/index.mjs",
+    "seed": "node --disable-warning=ExperimentalWarning scripts/seed.mjs",
+    "test": "node --disable-warning=ExperimentalWarning --test",
+    "lint": "node scripts/lint.mjs"
+  },
+  "keywords": [
+    "ai-governance",
+    "agentic-ai",
+    "observability",
+    "prompt-injection",
+    "tool-calling",
+    "audit-log",
+    "cybersecurity"
+  ],
+  "author": "Micheal Wolski",
+  "license": "MIT"
+}

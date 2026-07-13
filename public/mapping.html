@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Observability Mapping · AI Agent Governance</title>
+    <meta
+      name="description"
+      content="How this governance prototype maps to production observability platforms: Azure AI Foundry, Databricks MLflow 3, OpenTelemetry, and MCP tool governance."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="row space-between">
+        <span class="pill">Observability · Standards · Production mapping</span>
+        <nav class="row nav">
+          <a class="btn ghost" href="index.html">Dashboard</a>
+          <a class="btn ghost" href="mapping.html" aria-current="page">Observability mapping</a>
+        </nav>
+      </div>
+      <h1>From prototype to production observability</h1>
+      <p>
+        This prototype uses local JSON and a deterministic policy engine so the governance concepts
+        are easy to read. In production the same concepts map onto managed tracing, evaluation, and
+        tool-governance platforms. The table below is a <strong>conceptual mapping</strong>, not a
+        product endorsement or integration guide.
+      </p>
+      <p class="disclaimer" role="note">
+        This page is a <strong>conceptual mapping</strong> for orientation. No vendor connections or
+        credentials are configured by the service itself.
+      </p>
+    </header>
+
+    <main>
+      <div class="grid">
+        <section class="card span3">
+          <h3>Azure AI Foundry</h3>
+          <p class="muted small">
+            Managed agent runtime with built-in tracing/observability (via Application Insights &amp;
+            OpenTelemetry), evaluations for groundedness and safety, and Prompt Shields for
+            injection defence.
+          </p>
+        </section>
+        <section class="card span3">
+          <h3>Databricks MLflow 3</h3>
+          <p class="muted small">
+            GenAI tracing with spans for model and tool calls, LLM-as-judge evaluation, feedback
+            capture, and production quality monitoring on the lakehouse.
+          </p>
+        </section>
+        <section class="card span3">
+          <h3>OpenTelemetry</h3>
+          <p class="muted small">
+            Vendor-neutral standard. GenAI semantic conventions describe spans for model calls, tool
+            calls, and token usage — exportable to any backend as traces, metrics, and logs.
+          </p>
+        </section>
+        <section class="card span3">
+          <h3>MCP &amp; tool governance</h3>
+          <p class="muted small">
+            The Model Context Protocol standardises how agents reach tools. Governance lives at the
+            boundary: which tools are exposed, read vs. write scope, allowlists, and approvals.
+          </p>
+        </section>
+
+        <section class="card span12">
+          <h2>Concept mapping</h2>
+          <div class="table-scroll">
+            <table class="mapping">
+              <thead>
+                <tr>
+                  <th>This dashboard</th>
+                  <th>Azure AI Foundry</th>
+                  <th>Databricks MLflow 3</th>
+                  <th>OpenTelemetry</th>
+                  <th>MCP / tool governance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Trace capture</strong><br /><span class="muted small">traces.json rows</span></td>
+                  <td>Foundry agent run traces / thread runs</td>
+                  <td>MLflow Traces &amp; spans (<code>mlflow.start_span</code>)</td>
+                  <td>Root span per agent invocation (<code>gen_ai.*</code>)</td>
+                  <td>Tool invocation is one span within the run</td>
+                </tr>
+                <tr>
+                  <td><strong>Tool-call monitoring</strong><br /><span class="muted small">read vs. write tools</span></td>
+                  <td>Tool/function-call steps in the run</td>
+                  <td>Tool spans with inputs/outputs</td>
+                  <td><code>gen_ai.tool.*</code> span attributes</td>
+                  <td>Per-tool permission &amp; write-scope policy</td>
+                </tr>
+                <tr>
+                  <td><strong>Prompt-injection detection</strong><br /><span class="muted small">direct &amp; indirect rules</span></td>
+                  <td>Prompt Shields / content safety</td>
+                  <td>Custom eval or guardrail scorer</td>
+                  <td>Custom span attribute / event flag</td>
+                  <td>Untrusted-content handling at the tool boundary</td>
+                </tr>
+                <tr>
+                  <td><strong>Human approval</strong><br /><span class="muted small">approve / reject / escalate</span></td>
+                  <td>Human-in-the-loop step / approval gate</td>
+                  <td>Feedback &amp; review APIs on a trace</td>
+                  <td>Span event recording the decision</td>
+                  <td>Approval required before a write tool executes</td>
+                </tr>
+                <tr>
+                  <td><strong>Groundedness / quality</strong><br /><span class="muted small">groundedness score</span></td>
+                  <td>Foundry evaluators (groundedness, relevance)</td>
+                  <td>LLM judges &amp; <code>mlflow.evaluate</code></td>
+                  <td>Metric exported alongside the span</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><strong>Risk scoring &amp; policy</strong><br /><span class="muted small">weighted rule engine</span></td>
+                  <td>Evaluation thresholds &amp; alerts</td>
+                  <td>Scorers + monitoring thresholds</td>
+                  <td>Derived metric / alerting rule</td>
+                  <td>Policy-as-code on tool access</td>
+                </tr>
+                <tr>
+                  <td><strong>Audit export</strong><br /><span class="muted small">signed JSON evidence</span></td>
+                  <td>Export to Log Analytics / Fabric</td>
+                  <td>Traces persisted on the lakehouse</td>
+                  <td>OTLP export to any store</td>
+                  <td>Tool-access log retained for audit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted small mt">
+            Names of third-party products are used only to describe where these governance concepts
+            live in a production stack. Capabilities evolve — treat this as a conceptual orientation,
+            not current product documentation.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <div class="footer">
+      AI Agent Governance Dashboard · <a href="index.html">Back to dashboard</a>
+    </div>
+  </body>
+</html>

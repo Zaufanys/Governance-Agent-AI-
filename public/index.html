@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Agent Governance Dashboard</title>
+    <meta
+      name="description"
+      content="Governance dashboard for enterprise AI agents: tracing, prompt-injection flags, tool-call monitoring, human approval, and audit-ready evidence."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="row space-between">
+        <span class="pill">AI Governance · Agent Tracing · Cybersecurity</span>
+        <nav class="row nav">
+          <a class="btn ghost" href="index.html" aria-current="page">Dashboard</a>
+          <a class="btn ghost" href="mapping.html">Observability mapping</a>
+          <span class="user-badge" id="userBadge" hidden></span>
+          <button class="btn ghost" id="logoutBtn" hidden>Log out</button>
+        </nav>
+      </div>
+      <h1>AI Agent Governance Dashboard</h1>
+      <p>
+        Monitor AI agent traces for prompt-injection indicators, risky tool calls, approval gaps,
+        sensitive-data exposure, and groundedness — then capture a human decision and export
+        audit-ready evidence.
+      </p>
+      <p class="disclaimer" role="note">
+        Traces are stored in the service database. Example traces are seeded on first run — send
+        your own with the ingestion API below, or clear the database to start empty.
+      </p>
+    </header>
+
+    <main>
+      <div class="grid">
+        <!-- Controls ------------------------------------------------------->
+        <section class="card span12">
+          <div class="row space-between wrap">
+            <div class="row wrap">
+              <label
+                >Risk level
+                <select id="riskFilter">
+                  <option value="">All</option>
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </label>
+              <label
+                >Agent
+                <select id="agentFilter"><option value="">All</option></select>
+              </label>
+            </div>
+            <div class="row wrap">
+              <button id="resetBtn" class="btn">Reset filters</button>
+              <button id="exportBtn" class="btn primary">Export audit JSON</button>
+            </div>
+          </div>
+          <div class="row wrap chips" id="quickFilters" aria-label="Quick filters"></div>
+        </section>
+
+        <!-- KPIs ----------------------------------------------------------->
+        <section class="card span2 kpi"><span class="muted">Traces</span><strong id="kpiTotal">0</strong></section>
+        <section class="card span2 kpi"><span class="muted">High risk</span><strong class="bad" id="kpiHigh">0</strong></section>
+        <section class="card span2 kpi"><span class="muted">Medium</span><strong class="warn" id="kpiMedium">0</strong></section>
+        <section class="card span2 kpi"><span class="muted">Approvals missing</span><strong id="kpiApprovalsMissing">0</strong></section>
+        <section class="card span2 kpi"><span class="muted">Write tools</span><strong id="kpiWrite">0</strong></section>
+        <section class="card span2 kpi"><span class="muted">Avg groundedness</span><strong class="good" id="kpiGrounded">0%</strong></section>
+
+        <!-- Risk breakdown + approval queue -------------------------------->
+        <section class="card span5">
+          <h2>Risk breakdown</h2>
+          <div class="breakdown">
+            <div class="breakdown-row">
+              <span class="tag bad">High</span>
+              <div class="bar"><span id="barHigh" class="bad-bg"></span></div>
+              <strong id="cntHigh">0</strong>
+            </div>
+            <div class="breakdown-row">
+              <span class="tag warn">Medium</span>
+              <div class="bar"><span id="barMedium" class="warn-bg"></span></div>
+              <strong id="cntMedium">0</strong>
+            </div>
+            <div class="breakdown-row">
+              <span class="tag good">Low</span>
+              <div class="bar"><span id="barLow" class="good-bg"></span></div>
+              <strong id="cntLow">0</strong>
+            </div>
+          </div>
+          <h3 class="mt">Most-triggered policies</h3>
+          <ul class="rule-tally" id="ruleTally"></ul>
+        </section>
+
+        <section class="card span7">
+          <h2>Approval queue <span class="count-badge" id="queueCount">0</span></h2>
+          <p class="muted small">
+            Traces that require human approval and have no recorded decision yet. Act directly, or
+            open a trace for the full reviewer workflow.
+          </p>
+          <div id="approvalQueue" class="queue"></div>
+        </section>
+
+        <!-- Timeline ------------------------------------------------------->
+        <section class="card span12">
+          <h2>Trace timeline</h2>
+          <p class="muted small">Chronological agent activity, coloured by risk. Select a node to review it.</p>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <!-- Trace table ---------------------------------------------------->
+        <section class="card span7">
+          <h2>Governance trace review</h2>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Trace</th>
+                  <th>Agent</th>
+                  <th>Risk</th>
+                  <th>Action</th>
+                  <th>Flags</th>
+                  <th>Decision</th>
+                </tr>
+              </thead>
+              <tbody id="traceTable"></tbody>
+            </table>
+          </div>
+          <p class="muted small" id="tableEmpty" hidden>No traces match the current filters.</p>
+        </section>
+
+        <!-- Selected trace + reviewer workflow ----------------------------->
+        <section class="card span5">
+          <h2 id="selectedTitle">Selected trace</h2>
+          <p class="muted small" id="selectedHint">Select a trace from the timeline or table to review it.</p>
+
+          <div id="reviewer" hidden>
+            <div class="reviewer-actions row wrap" id="decisionButtons">
+              <button class="btn approve" data-decision="approved">Approve</button>
+              <button class="btn reject" data-decision="rejected">Reject</button>
+              <button class="btn escalate" data-decision="escalated">Escalate</button>
+              <button class="btn ghost" id="clearDecisionBtn">Clear</button>
+            </div>
+            <label class="mt"
+              >Reviewer note
+              <textarea id="reviewerNote" rows="3" placeholder="Why this decision? (optional)"></textarea>
+            </label>
+            <p class="decision-meta muted small" id="decisionMeta">No decision recorded.</p>
+
+            <h3 class="mt">Policy checklist for this trace</h3>
+            <ul class="policy-checklist" id="policyChecklist"></ul>
+
+            <h3 class="mt">Raw trace</h3>
+            <pre id="traceJson"></pre>
+          </div>
+        </section>
+
+        <!-- Ingestion API -------------------------------------------------->
+        <section class="card span12">
+          <h2>Send traces (ingestion API)</h2>
+          <p class="muted small">
+            Agents and pipelines post traces to <code>POST /api/ingest</code> with an API-key header.
+            Each trace is scored by the governance engine and appears here immediately.
+          </p>
+          <pre class="code-block">curl -X POST http://localhost:4175/api/ingest \
+  -H "Authorization: Bearer &lt;your-api-key&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent": "RFQ Copilot",
+    "input": "Summarize RFQ-2026-PS-114",
+    "tools": [{ "name": "search_rfq_docs", "type": "read" }],
+    "approvalRequired": true,
+    "approved": false,
+    "groundedness": 0.9
+  }'</pre>
+        </section>
+
+        <!-- Global policy checklist ---------------------------------------->
+        <section class="card span12">
+          <h2>Governance principles</h2>
+          <div class="grid">
+            <div class="kpi span4">
+              <strong>Least privilege</strong>
+              <span class="muted">Agents should only reach the tools and data a task actually needs — read vs. write matters.</span>
+            </div>
+            <div class="kpi span4">
+              <strong>Human approval</strong>
+              <span class="muted">Write actions, pricing, and customer-facing output pass through a human before they take effect.</span>
+            </div>
+            <div class="kpi span4">
+              <strong>Trace &amp; evaluate</strong>
+              <span class="muted">Every model call, retrieval, tool call, and output is captured, scored, and auditable.</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="footer">
+      AI Agent Governance Dashboard · agent traceability, human approvals &amp; audit-ready evidence ·
+      <a href="mapping.html">Observability mapping</a>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
