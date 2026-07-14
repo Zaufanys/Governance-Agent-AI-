@@ -20,9 +20,12 @@
       --shadow: 0 18px 50px rgba(0,0,0,0.28);
       --r: 18px;
     }
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { overflow-x: hidden; max-width: 100vw; }
     body {
       margin: 0;
+      overflow-x: hidden;
+      max-width: 100vw;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background: radial-gradient(circle at 0 0, #1a3470, transparent 34rem),
         radial-gradient(circle at 100% 100%, #0d493a, transparent 28rem), var(--bg);
@@ -31,26 +34,41 @@
       min-height: 100vh;
     }
     header {
-      padding: 24px clamp(16px, 3vw, 42px);
+      padding: 16px clamp(12px, 3vw, 42px);
       border-bottom: 1px solid var(--line);
       background: rgba(8,12,28,0.72);
       backdrop-filter: blur(16px);
+      overflow: hidden;
     }
-    header h1 { margin: 14px 0 0; font-size: clamp(1.4rem, 3vw, 2.4rem); letter-spacing: -0.04em; }
-    header p { margin: 0.5rem 0 0; color: var(--muted); max-width: 1000px; }
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    header h1 { margin: 10px 0 0; font-size: clamp(1.1rem, 4vw, 2.4rem); letter-spacing: -0.04em; }
+    header p { margin: 0.4rem 0 0; color: var(--muted); max-width: 1000px; font-size: clamp(0.8rem, 2.5vw, 1rem); }
     .disclaimer {
-      margin-top: 14px;
+      margin-top: 10px;
       border-left: 4px solid var(--warn);
       background: rgba(255,209,102,0.1);
-      padding: 10px 14px;
+      padding: 8px 12px;
       border-radius: 12px;
       color: var(--text);
-      font-size: 0.9rem;
-      max-width: 1000px;
+      font-size: 0.85rem;
+      max-width: 100%;
     }
     .disclaimer strong { color: var(--warn); }
-    main { padding: 24px clamp(16px, 3vw, 42px); max-width: 1360px; margin: auto; }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    main { padding: 16px clamp(10px, 3vw, 42px); max-width: 1360px; margin: auto; overflow-x: hidden; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+    .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; grid-column: span 12; }
     .card {
       grid-column: span 12;
       background: rgba(18,26,53,0.88);
@@ -214,10 +232,11 @@
     .policy-checklist li.fail .mark { color: var(--bad); }
     .policy-checklist li.fail strong { color: var(--text); }
     pre {
-      white-space: pre-wrap; word-break: break-word;
+      white-space: pre-wrap; word-break: break-all;
       background: rgba(5,9,20,0.72); border: 1px solid var(--line);
       border-radius: 14px; padding: 14px; max-height: 320px;
-      overflow: auto; font-size: 0.82rem;
+      overflow: auto; font-size: 0.78rem;
+      max-width: 100%; width: 100%;
     }
     code { background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 6px; }
     .chips { margin-top: 12px; }
@@ -238,22 +257,27 @@
     }
     .ok-note { color: var(--good); }
     @media (max-width: 1000px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .span2,.span3,.span4,.span5,.span6,.span7,.span8 { grid-column: span 1; }
+      .span5, .span7, .span8 { grid-column: span 2; }
+      .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
       .grid { grid-template-columns: 1fr; }
       .span2,.span3,.span4,.span5,.span6,.span7,.span8 { grid-column: span 1; }
-    }
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.2rem; }
-      .row.space-between { gap: 8px; }
-      th, td { padding: 8px 6px; font-size: 0.8rem; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      th, td { padding: 8px 5px; font-size: 0.75rem; }
+      button, .btn { padding: 7px 10px; font-size: 0.82rem; }
+      .pill { display: none; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="row space-between">
+  <div class="header-top">
     <span class="pill">AI Governance · Agent Tracing · Cybersecurity</span>
-    <nav class="row nav">
+    <nav class="header-nav">
       <a class="btn ghost" href="index.html" aria-current="page">Dashboard</a>
       <span class="user-badge">Signed in as: admin</span>
       <button class="btn ghost" onclick="alert('Demo mode — no backend. In the real app this ends your session.')">Log out</button>
@@ -271,7 +295,7 @@
   <div class="grid">
 
     <!-- Controls -->
-    <section class="card span12" style="grid-column: span 12">
+    <section class="card span12" style="grid-column: 1 / -1">
       <div class="row space-between wrap">
         <div class="row wrap">
           <label>Risk level
@@ -297,12 +321,14 @@
     </section>
 
     <!-- KPIs -->
-    <section class="card span2 kpi"><span class="muted">Traces</span><strong id="kpiTotal">0</strong></section>
-    <section class="card span2 kpi"><span class="muted">High risk</span><strong class="bad" id="kpiHigh">0</strong></section>
-    <section class="card span2 kpi"><span class="muted">Medium</span><strong class="warn" id="kpiMedium">0</strong></section>
-    <section class="card span2 kpi"><span class="muted">Approvals missing</span><strong id="kpiApprovalsMissing">0</strong></section>
-    <section class="card span2 kpi"><span class="muted">Write tools</span><strong id="kpiWrite">0</strong></section>
-    <section class="card span2 kpi"><span class="muted">Avg groundedness</span><strong class="good" id="kpiGrounded">0%</strong></section>
+    <div class="kpi-row">
+      <div class="card kpi"><span class="muted">Traces</span><strong id="kpiTotal">0</strong></div>
+      <div class="card kpi"><span class="muted">High risk</span><strong class="bad" id="kpiHigh">0</strong></div>
+      <div class="card kpi"><span class="muted">Medium</span><strong class="warn" id="kpiMedium">0</strong></div>
+      <div class="card kpi"><span class="muted">Approvals missing</span><strong id="kpiApprovalsMissing">0</strong></div>
+      <div class="card kpi"><span class="muted">Write tools</span><strong id="kpiWrite">0</strong></div>
+      <div class="card kpi"><span class="muted">Avg groundedness</span><strong class="good" id="kpiGrounded">0%</strong></div>
+    </div>
 
     <!-- Risk breakdown -->
     <section class="card span5">
@@ -336,7 +362,7 @@
     </section>
 
     <!-- Timeline -->
-    <section class="card span12" style="grid-column: span 12">
+    <section class="card span12" style="grid-column: 1 / -1">
       <h2>Trace timeline</h2>
       <p class="muted small">Chronological agent activity, coloured by risk. Select a node to review it.</p>
       <div class="timeline" id="timeline"></div>
@@ -386,7 +412,7 @@
     </section>
 
     <!-- Ingestion API -->
-    <section class="card span12" style="grid-column: span 12">
+    <section class="card span12" style="grid-column: 1 / -1">
       <h2>Send traces (ingestion API)</h2>
       <p class="muted small">Agents and pipelines post traces to <code>POST /api/ingest</code> with an API-key header. Each trace is scored by the governance engine and appears here immediately.</p>
       <pre style="overflow-x:auto">curl -X POST http://localhost:4175/api/ingest \
@@ -403,7 +429,7 @@
     </section>
 
     <!-- Governance principles -->
-    <section class="card span12" style="grid-column: span 12">
+    <section class="card span12" style="grid-column: 1 / -1">
       <h2>Governance principles</h2>
       <div class="grid">
         <div class="kpi span4">
