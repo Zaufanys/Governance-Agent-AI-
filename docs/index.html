@@ -12,526 +12,470 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
+            background: #f5f5f5;
+        }
+
+        .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        header .container {
+            color: white;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        h1 {
+        .header h1 {
             font-size: 24px;
-            font-weight: 700;
-            color: #667eea;
         }
 
-        nav a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #667eea;
-        }
-
-        .hero {
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .hero h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            opacity: 0.95;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .features {
-            background: white;
-            padding: 80px 0;
-        }
-
-        .features h3 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 60px;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-        }
-
-        .feature-card h4 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #667eea;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .screenshot-section {
-            background: #f8f9fa;
-            padding: 80px 0;
-        }
-
-        .screenshot-section h3 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-            color: #333;
-        }
-
-        .screenshots {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .screenshot {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .screenshot img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .how-it-works {
-            background: white;
-            padding: 80px 0;
-        }
-
-        .how-it-works h3 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 60px;
-            color: #333;
-        }
-
-        .workflow {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            align-items: start;
-        }
-
-        .step {
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .step-number {
-            font-size: 36px;
-            font-weight: 800;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .step h4 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .step p {
-            color: #666;
+        .user-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
             font-size: 14px;
         }
 
-        .rules-section {
-            background: #f8f9fa;
-            padding: 80px 0;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .rules-section h3 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-            color: #333;
-        }
-
-        .rules-table {
+        .intro {
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .rules-table table {
+        .intro h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .intro p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-mockup {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1a252f;
+        }
+
+        .dashboard-header h3 {
+            font-size: 20px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .summary-card .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .summary-card .label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .filters {
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .traces-table {
+            padding: 20px;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .rules-table th {
-            background: #667eea;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
+        thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
         }
 
-        .rules-table td {
-            padding: 15px;
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px 12px;
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .rules-table tr:last-child td {
-            border-bottom: none;
+        tr:hover {
+            background: #f8f9fa;
         }
 
-        .tech-stack {
-            background: white;
-            padding: 80px 0;
-        }
-
-        .tech-stack h3 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
+        .agent-name {
+            font-weight: 600;
             color: #333;
         }
 
-        .tech-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-
-        .tech-item {
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            font-weight: 600;
-            color: #667eea;
-        }
-
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-            margin-top: 80px;
-        }
-
-        .badge {
+        .score-badge {
             display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .score-high {
+            background: #fee;
+            color: #c33;
+        }
+
+        .score-medium {
+            background: #fef3cd;
+            color: #997404;
+        }
+
+        .score-low {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
             font-size: 12px;
             font-weight: 600;
-            margin-right: 10px;
+        }
+
+        .level-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .level-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .level-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .action-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .decision-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .decision-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .decision-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .decision-pending {
+            background: #fff3cd;
+            color: #997404;
+        }
+
+        .flags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .flag {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .flag.injection {
+            background: #fee;
+            color: #c33;
+        }
+
+        .flag.sensitive {
+            background: #fef3cd;
+            color: #997404;
+        }
+
+        .flag.groundedness {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
         }
 
         @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 32px;
+            .dashboard-header {
+                flex-direction: column;
+                gap: 10px;
             }
 
-            .hero p {
-                font-size: 16px;
+            table {
+                font-size: 12px;
             }
 
-            nav {
-                display: none;
-            }
-
-            .rules-table table {
-                font-size: 14px;
-            }
-
-            .rules-table th, .rules-table td {
-                padding: 10px;
+            th, td {
+                padding: 10px 6px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🛡️ AI Agent Governance Dashboard</h1>
-            <nav>
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#rules">Rules</a>
-                <a href="https://github.com/Zaufanys/Governance-Agent-AI-">GitHub</a>
-            </nav>
-        </div>
-    </header>
+    <!-- Header -->
+    <div class="header">
+        <h1>🛡️ AI Agent Governance Dashboard</h1>
+        <div class="user-badge">Signed in as: admin</div>
+    </div>
 
-    <section class="hero">
-        <div class="container">
+    <div class="container">
+        <!-- Intro -->
+        <div class="intro">
             <h2>Governance for AI Agents</h2>
-            <p>A self-hostable service that ingests, scores, and audits AI agent runs in real-time</p>
-            <div class="cta-buttons">
-                <a href="https://github.com/Zaufanys/Governance-Agent-AI-#quick-start" class="btn btn-primary">Quick Start</a>
-                <a href="https://github.com/Zaufanys/Governance-Agent-AI-/blob/main/README.md" class="btn btn-secondary">Learn More</a>
-            </div>
+            <p><strong>Self-hostable service that ingests, scores, and audits AI agent runs in real-time.</strong></p>
+            <p>Automatically detect prompt injection, risky tool calls, sensitive data exposure, and low groundedness. Route high-risk traces to reviewers. Keep durable audit trails for compliance.</p>
+            <p style="margin-top: 15px; color: #667eea; font-weight: 600;">👇 See the dashboard mockup below</p>
         </div>
-    </section>
 
-    <section class="features" id="features">
-        <div class="container">
-            <h3>Why Governance Matters</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h4>🚨 Risk Scoring</h4>
-                    <p>Automatically detect prompt injection, risky tool calls, sensitive data exposure, and low groundedness on arrival.</p>
+        <!-- Dashboard Mockup -->
+        <div class="dashboard-mockup">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h3>Traces Dashboard</h3>
+                <div style="font-size: 13px; color: #aaa;">Today's Activity</div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="number">24</div>
+                    <div class="label">Total Traces</div>
                 </div>
-                <div class="feature-card">
-                    <h4>✅ Human Review</h4>
-                    <p>Route high-risk traces to an approval queue. Reviewers approve, reject, or escalate with audit trails.</p>
+                <div class="summary-card">
+                    <div class="number">3</div>
+                    <div class="label">High Risk</div>
                 </div>
-                <div class="feature-card">
-                    <h4>📊 Durable Records</h4>
-                    <p>Every decision is stored with reviewer metadata and timestamps. Full audit trail for compliance.</p>
+                <div class="summary-card">
+                    <div class="number">7</div>
+                    <div class="label">Medium Risk</div>
                 </div>
-                <div class="feature-card">
-                    <h4>🔑 Zero Dependencies</h4>
-                    <p>Built on Node.js standard library only. SQLite database. No external services. Deploy anywhere.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>⚡ Real-Time API</h4>
-                    <p>Ingest traces via REST API. Governance scores returned immediately. Dashboard updates live.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>🐳 Production Ready</h4>
-                    <p>Includes Docker, environment config, CI/CD workflows, and 32 passing tests. Deploy to production today.</p>
+                <div class="summary-card">
+                    <div class="number">2</div>
+                    <div class="label">Pending Review</div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="screenshot-section">
-        <div class="container">
-            <h3>Live Dashboard</h3>
-            <div class="screenshots">
-                <div class="screenshot">
-                    <img src="screenshots/dashboard.png" alt="Dashboard showing traces and decisions">
-                </div>
-                <div class="screenshot">
-                    <img src="screenshots/login.png" alt="Login page with credentials">
-                </div>
-                <div class="screenshot">
-                    <img src="screenshots/mapping.png" alt="Observability mapping guide">
-                </div>
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-chip active">All (24)</div>
+                <div class="filter-chip">High Risk (3)</div>
+                <div class="filter-chip">Medium Risk (7)</div>
+                <div class="filter-chip">Pending (2)</div>
+                <div class="filter-chip">Approved (8)</div>
+                <div class="filter-chip">Rejected (4)</div>
             </div>
-        </div>
-    </section>
 
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <h3>How It Works</h3>
-            <div class="workflow">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h4>Agent Runs</h4>
-                    <p>Your agent executes a task with tools and context.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h4>Ingest Trace</h4>
-                    <p>POST trace data to /api/ingest with your API key.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h4>Score Risk</h4>
-                    <p>Engine scores the trace against 8 governance rules in real-time.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h4>Review & Decide</h4>
-                    <p>Humans approve, reject, or escalate high-risk runs.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <h4>Audit Export</h4>
-                    <p>Full audit bundle with traces, scores, and decisions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="rules-section" id="rules">
-        <div class="container">
-            <h3>Governance Rules</h3>
-            <div class="rules-table">
+            <!-- Traces Table -->
+            <div class="traces-table">
                 <table>
                     <thead>
                         <tr>
-                            <th>Rule</th>
-                            <th>Category</th>
-                            <th>Weight</th>
-                            <th>Purpose</th>
+                            <th>Agent</th>
+                            <th>User</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            <th>Action</th>
+                            <th>Flags</th>
+                            <th>Decision</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Direct Prompt Injection</strong></td>
-                            <td><span class="badge">Security</span></td>
-                            <td>35</td>
-                            <td>Detects override attempts in user input</td>
+                            <td class="agent-name">CRM Update Agent</td>
+                            <td>sales.analyst</td>
+                            <td><span class="score-badge score-high">80</span></td>
+                            <td><span class="level-badge level-high">High</span></td>
+                            <td><span class="action-badge">Escalate</span></td>
+                            <td>
+                                <div class="flags">
+                                    <span class="flag injection">Prompt Injection</span>
+                                    <span class="flag">Write Tool</span>
+                                </div>
+                            </td>
+                            <td><span class="decision-badge decision-pending">⏳ Pending</span></td>
                         </tr>
                         <tr>
-                            <td><strong>Indirect Injection</strong></td>
-                            <td><span class="badge">Security</span></td>
-                            <td>30</td>
-                            <td>Detects poisoned retrieved content</td>
+                            <td class="agent-name">Pricing Assistant</td>
+                            <td>support</td>
+                            <td><span class="score-badge score-medium">45</span></td>
+                            <td><span class="level-badge level-medium">Medium</span></td>
+                            <td><span class="action-badge">Review</span></td>
+                            <td>
+                                <div class="flags">
+                                    <span class="flag groundedness">Low Groundedness</span>
+                                </div>
+                            </td>
+                            <td><span class="decision-badge decision-approved">✓ Approved</span></td>
                         </tr>
                         <tr>
-                            <td><strong>Write Tool Without Approval</strong></td>
-                            <td><span class="badge">Control</span></td>
-                            <td>30</td>
-                            <td>Flags state-changing actions without review</td>
+                            <td class="agent-name">RFQ Copilot</td>
+                            <td>sales.rep</td>
+                            <td><span class="score-badge score-high">75</span></td>
+                            <td><span class="level-badge level-high">High</span></td>
+                            <td><span class="action-badge">Escalate</span></td>
+                            <td>
+                                <div class="flags">
+                                    <span class="flag sensitive">Sensitive Data</span>
+                                    <span class="flag">Write Tool</span>
+                                </div>
+                            </td>
+                            <td><span class="decision-badge decision-pending">⏳ Pending</span></td>
                         </tr>
                         <tr>
-                            <td><strong>Sensitive Data</strong></td>
-                            <td><span class="badge">Data</span></td>
-                            <td>25</td>
-                            <td>Detects PII, credentials, or confidential info</td>
+                            <td class="agent-name">Research Assistant</td>
+                            <td>analyst</td>
+                            <td><span class="score-badge score-low">15</span></td>
+                            <td><span class="level-badge level-low">Low</span></td>
+                            <td><span class="action-badge">Monitor</span></td>
+                            <td>
+                                <div class="flags" style="color: #999;">
+                                    <span style="background: #f0f0f0; padding: 4px 8px; border-radius: 4px; font-size: 11px;">No flags</span>
+                                </div>
+                            </td>
+                            <td><span class="decision-badge decision-approved">✓ Approved</span></td>
                         </tr>
                         <tr>
-                            <td><strong>Customer-Facing Without Review</strong></td>
-                            <td><span class="badge">Control</span></td>
-                            <td>20</td>
-                            <td>Requires approval for user-visible output</td>
+                            <td class="agent-name">Email Composer</td>
+                            <td>marketing</td>
+                            <td><span class="score-badge score-medium">30</span></td>
+                            <td><span class="level-badge level-medium">Medium</span></td>
+                            <td><span class="action-badge">Review</span></td>
+                            <td>
+                                <div class="flags">
+                                    <span class="flag">Customer-Facing</span>
+                                </div>
+                            </td>
+                            <td><span class="decision-badge decision-rejected">✗ Rejected</span></td>
                         </tr>
                         <tr>
-                            <td><strong>Low Groundedness</strong></td>
-                            <td><span class="badge">Quality</span></td>
-                            <td>15</td>
-                            <td>Flags outputs lacking evidence support (&lt; 0.75)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Excessive Tool Calls</strong></td>
-                            <td><span class="badge">Quality</span></td>
-                            <td>10</td>
-                            <td>Flags runs with &gt; 5 tool invocations</td>
-                        </tr>
-                        <tr>
-                            <td><strong>High Latency</strong></td>
-                            <td><span class="badge">Quality</span></td>
-                            <td>5</td>
-                            <td>Flags runs taking &gt; 2000 ms</td>
+                            <td class="agent-name">Code Reviewer</td>
+                            <td>dev.team</td>
+                            <td><span class="score-badge score-low">5</span></td>
+                            <td><span class="level-badge level-low">Low</span></td>
+                            <td><span class="action-badge">Monitor</span></td>
+                            <td>
+                                <div class="flags" style="color: #999;">
+                                    <span style="background: #f0f0f0; padding: 4px 8px; border-radius: 4px; font-size: 11px;">No flags</span>
+                                </div>
+                            </td>
+                            <td><span class="decision-badge decision-approved">✓ Approved</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    </section>
 
-    <section class="tech-stack">
-        <div class="container">
-            <h3>Tech Stack</h3>
-            <div class="tech-items">
-                <div class="tech-item">Node.js ≥22</div>
-                <div class="tech-item">SQLite</div>
-                <div class="tech-item">REST API</div>
-                <div class="tech-item">Scrypt</div>
-                <div class="tech-item">Docker</div>
-                <div class="tech-item">GitHub Actions</div>
-                <div class="tech-item">Zero Dependencies</div>
-                <div class="tech-item">32 Tests</div>
-            </div>
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Deploy and customize this dashboard</strong></p>
+            <p>Clone from GitHub, run locally or deploy to Docker/cloud. Full REST API for ingestion. SQLite persistence. 32 automated tests. Zero external dependencies.</p>
+            <p style="margin-top: 15px;">
+                <a href="https://github.com/Zaufanys/Governance-Agent-AI-" style="color: #667eea; text-decoration: none; font-weight: 600;">→ View on GitHub</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://github.com/Zaufanys/Governance-Agent-AI-#quick-start" style="color: #667eea; text-decoration: none; font-weight: 600;">Quick Start Guide</a>
+            </p>
         </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p><strong>AI Agent Governance Dashboard</strong></p>
-            <p style="margin-top: 10px; opacity: 0.8;">A self-hostable governance service for AI agents • <a href="https://github.com/Zaufanys/Governance-Agent-AI-" style="color: #667eea;">View on GitHub</a></p>
-            <p style="margin-top: 20px; opacity: 0.6; font-size: 14px;">MIT License • Built with Node.js standard library</p>
-        </div>
-    </footer>
+    </div>
 </body>
 </html>
